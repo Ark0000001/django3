@@ -10,16 +10,26 @@
 <body>
 <header><h1>Объявления</h1></header>
 
+
 <nav>
-    <a href="{% url 'index' %}">Главная</a>
-    <a href="{% url 'add' %}">Добавить</a>
+    <a href="{% url 'bboard:index' %}">Главная</a>
+    <a href="{% url 'bboard:add' %}">Добавить</a>
+
     {% for rubric in rubrics %}
-        <a href="{% url 'by_rubric' rubric.pk %}">{{ rubric.name }}</a>
+        <a href="{% url 'bboard:by_rubric' rubric.pk %}">{{ rubric.name }}</a>
     {% endfor %}
+    <p>{% filter force_escape|upper %}
+    дата текущая {% endfilter %}</p>
+    <p>{% now 'SHORT_DATE_FORMAT' %}</p>
+    <p>{% verbatim %}
+    <p>текущее {% now %}</p>
+    {% endverbatim %}</p>
+    <p>{{ 5698|get_digit:2 }}</p>
 </nav>
 
 <section>
     {% block content %}
+        <p>********************************</p>
     {% endblock %}
 </section>
 
